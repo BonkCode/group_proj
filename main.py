@@ -8,6 +8,7 @@ import pandas as pd
 from typing import Optional
 from typing import List
 from matplotlib import pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from PIL import Image
 import io
 
@@ -51,10 +52,19 @@ def upload_file(window: pg.Window, file_path: str) -> Optional[pd.DataFrame]:
     return df_main
 
 
-def get_data(dataframe: pd.DataFrame, x_column_name: str, y_column_name: str) -> pd.DataFrame:
+def get_data(dataframe: pd.DataFrame, x_column_name: str, y_column_name: str) -> Optional[pd.DataFrame]:
+    if x_column_name == '' or y_column_name == '':
+        return None
     data = dataframe[[x_column_name, y_column_name]]
-    data.columns = ['X', 'Y']
+    data.columns = ['x', 'y']
     return data
+
+
+def draw_figure(canvas, figure):
+    figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
+    figure_canvas_agg.draw()
+    figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
+    return figure_canvas_agg
 
 
 def setup_layout() -> List:
@@ -65,20 +75,27 @@ def setup_layout() -> List:
         [pg.Radio('Круговая диаграмма', 'plot', default=True, key='-CIRCLE-'),
          pg.Radio('Столбчатая диаграмма', 'plot', key='-BAR-'),
          pg.Radio('Точечная диаграмма', 'plot', key='-POINT-')],
-        [pg.Image(key='-IMG-')],
+        [pg.Canvas(key='-GRAPH-CANVAS-')],
         [pg.Button('Показать график'), pg.Button('Загрузить файл')]
     ]
     return layout
+
+
+def test_draw(data):
+    fig = plt.figure()
+    plt.plot(data['x'], data['y'])
+    return fig
 
 
 if __name__ == '__main__':
     pg.theme('Kayak')
     # layout
     layout = setup_layout()
-    window = pg.Window('Построение графика по csv файлу', layout)
+    window = pg.Window('Построение графика по csv файлу', layout, finalize=True)
     # event loop
     file_path = None
     df_main = None
+    drawn_figure = None
     while True:
         event, values = window.read()
         file_path = values['-TEXT-BOX-']
@@ -87,7 +104,15 @@ if __name__ == '__main__':
         elif event == 'Загрузить файл' and file_path is not None:
             df_main = upload_file(window, file_path)
         elif event == 'Показать график' and df_main is not None:
+            if drawn_figure is not None:
+                drawn_figure.get_tk_widget().forget()
+                plt.close('all')
             data = get_data(df_main, values['-O-MENU-X-'], values['-O-MENU-Y-'])
-            print(data)
+            if data is None:
+                continue
+            print(data.columns)
+            data = data.head(5)
+            fig = test_draw(data)
+            drawn_figure = draw_figure(window['-GRAPH-CANVAS-'].TKCanvas, fig)
     # closing the window
     window.close()
