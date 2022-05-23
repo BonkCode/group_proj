@@ -1,5 +1,9 @@
 # group_proj
 
+# Полезные ссылки:
+https://github.com/smakhijani/kaggle-kiva-crowdfunding/blob/master/Preliminary%20Exploratory%20Data%20Analysis.ipynb
+https://nbviewer.org/github/bibliotekue/kiva-microfunds-eda/blob/main/kiva_eda%20%282%29.html
+
 # Использование программы:
 ![image](https://user-images.githubusercontent.com/62333148/169783978-6642e66b-3865-4c2c-b06d-512d0a582f5b.png)
 
