@@ -4,7 +4,27 @@
 https://github.com/smakhijani/kaggle-kiva-crowdfunding/blob/master/Preliminary%20Exploratory%20Data%20Analysis.ipynb
 https://nbviewer.org/github/bibliotekue/kiva-microfunds-eda/blob/main/kiva_eda%20%282%29.html
 
-# Использование программы:
+# ВАША ЗАДАЧА
+Здесь дублирую то, что вам нужно сделать:
+Создаем функцию в отдельном файле, реализуем ее. Прототип описан ниже, вход и выход исключительно такие и никакие иначе.
+Ваша задача - написать группировку по X среднего значения(groupby('x').mean(), или что то типа того, не помню точно как в коде выглядеть должно)
+```py
+def plot_GRAPHTYPE_figure(data: pd.DataFrame) -> plt.Figure:
+    fig = plt.figure()
+    # Тут крутим данные. Ну там groupby() там и прочее
+    plt.plot(data['x'], data['y'])
+    return fig
+```
+
+# Проверка работы вашей части
+Открываете main.py, листаете вниз до строчки ```py if __name__ == '__main__': ```. Ищете то, что на картине:
+
+![image](https://user-images.githubusercontent.com/62333148/169837854-b7de25df-08c9-4885-ad42-c75c64ea5626.png)
+
+и вместо ```test_draw(data)``` пихаете ```YOUR_FUNC_NAME(data)```(естественно предварительно не забудте заимпортить свою функцию). Потом запускаете main.py и дальше смотрите ниже использование программы.
+
+
+# Использование программы
 ![image](https://user-images.githubusercontent.com/62333148/169783978-6642e66b-3865-4c2c-b06d-512d0a582f5b.png)
 
 ## Сначала вводим путь к файлу(глобальный, или относительно папки запуска)
