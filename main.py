@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from PIL import Image
 import io
-from graph1 import plot_barplot_figure
+from graph2 import plot_barplot_figure
 # data
 option_plots = ['Пример',
                 'Гендерная структура заёмщиков',
@@ -112,7 +112,7 @@ if __name__ == '__main__':
                 continue
             print(data.columns)
             data = data.head(5)
-            fig = plot_barplot_figure(data)
+            fig = test_draw(data)
             drawn_figure = draw_figure(window['-GRAPH-CANVAS-'].TKCanvas, fig)
     # closing the window
     window.close()
