@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from PIL import Image
 import io
-
+from graph2 import plot_barplot_figure
 # data
 option_plots = ['Пример',
                 'Гендерная структура заёмщиков',
