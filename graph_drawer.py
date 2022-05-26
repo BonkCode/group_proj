@@ -1,11 +1,8 @@
 import PySimpleGUI as pg
-import pandas as pd
 from typing import Optional
-from typing import List
-from matplotlib import pyplot as plt
+from typing import List, Dict, Type
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from karemina_barchart import plot_barplot_figure
-from layout import Layout
+from graph import *
 
 
 class GraphDrawer:
@@ -22,16 +19,20 @@ class GraphDrawer:
             elif event == 'Загрузить файл' and parent.file_path is not None:
                 parent.upload_file(window, parent.file_path)
             elif event == 'Показать график' and parent.df_main is not None:
-                parent.draw(window=window, values=values)
+                parent.draw(window=window, values=values,
+                            graphtype='pie' * values['-PIE-'] +
+                                      'bar' * values['-BAR-'] +
+                                      'scatter' * values['-SCATTER-'])
             return 0
 
-    def __init__(self):
+    def __init__(self, graphs: Dict[str, Type[Graph]]):
         self.file_path = None
         self.df_main = None
         self.drawn_figure = None
         self.event_handler = self.EventHandler()
+        self.graphs = graphs
 
-    def draw(self, window, values):
+    def draw(self, window, values, graphtype: str):
         if self.drawn_figure is not None:
             self.drawn_figure.get_tk_widget().forget()
             plt.close('all')
@@ -43,15 +44,16 @@ class GraphDrawer:
             return
         # plotting graph
         try:
-            fig = plot_barplot_figure(data)
+            fig = self.graphs[graphtype].plot_figure(data)
             self.draw_figure(window['-GRAPH-CANVAS-'].TKCanvas, fig)
         except Exception as e:
             print(f'ERROR: {str(e)}')
             return
 
     @staticmethod
-    def test_draw(data):
+    def test_draw(data: pd.DataFrame):
         fig = plt.figure()
+        data = data.head(5)
         plt.plot(data['x'], data['y'])
         return fig
 
