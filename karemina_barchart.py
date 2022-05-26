@@ -2,6 +2,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import numpy as np
 
+
 def plot_barplot_figure(data: pd.DataFrame) -> plt.Figure:
     from pandas.api.types import is_numeric_dtype
     fig = plt.figure()

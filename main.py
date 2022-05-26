@@ -5,6 +5,7 @@
 import PySimpleGUI as pg
 from layout import Layout
 from graph_drawer import GraphDrawer
+from graph import *
 
 
 if __name__ == '__main__':
@@ -12,7 +13,7 @@ if __name__ == '__main__':
     # layout
     layout = Layout()
     window = pg.Window('Построение графика по csv файлу', layout.layout, finalize=True)
-    drawer = GraphDrawer()
+    drawer = GraphDrawer(graphs={'pie': PieGraph, 'bar': BarGraph, 'scatter': ScatterGraph})
     # event loop
     while True:
         event, values = window.read()
