@@ -6,6 +6,7 @@ import PySimpleGUI as pg
 from layout import Layout
 from graph_drawer import GraphDrawer
 from graph import *
+from logger import BonkLogger
 
 
 if __name__ == '__main__':
