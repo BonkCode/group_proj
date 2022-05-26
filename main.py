@@ -11,7 +11,8 @@ from matplotlib import pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from PIL import Image
 import io
-from graph2 import plot_barplot_figure
+from karemina_barchart import plot_barplot_figure
+
 # data
 option_plots = ['Пример',
                 'Гендерная структура заёмщиков',
@@ -107,12 +108,18 @@ if __name__ == '__main__':
             if drawn_figure is not None:
                 drawn_figure.get_tk_widget().forget()
                 plt.close('all')
-            data = get_data(df_main, values['-O-MENU-X-'], values['-O-MENU-Y-'])
+            try:
+                data = get_data(df_main, values['-O-MENU-X-'], values['-O-MENU-Y-'])
+            except Exception as e:
+                print(f'ERROR: {str(e)}')
+                continue
             if data is None:
                 continue
-            print(data.columns)
-            data = data.head(5)
-            fig = test_draw(data)
-            drawn_figure = draw_figure(window['-GRAPH-CANVAS-'].TKCanvas, fig)
+            try:
+                fig = plot_barplot_figure(data)
+                drawn_figure = draw_figure(window['-GRAPH-CANVAS-'].TKCanvas, fig)
+            except Exception as e:
+                print(f'ERROR: {str(e)}')
+                continue
     # closing the window
     window.close()
