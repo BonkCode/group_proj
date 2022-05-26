@@ -3,6 +3,7 @@ from typing import Optional
 from typing import List, Dict, Type
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from graph import *
+from logger import BonkLogger
 
 
 class GraphDrawer:
@@ -31,6 +32,7 @@ class GraphDrawer:
         self.drawn_figure = None
         self.event_handler = self.EventHandler()
         self.graphs = graphs
+        self.logger = BonkLogger.get_instance()
 
     def draw(self, window, values, graphtype: str):
         if self.drawn_figure is not None:
@@ -40,14 +42,14 @@ class GraphDrawer:
         try:
             data = GraphDrawer.get_data(self.df_main, values['-O-MENU-X-'], values['-O-MENU-Y-'])
         except Exception as e:
-            print(f'ERROR: {str(e)}')
+            self.logger.error(str(e))
             return
         # plotting graph
         try:
             fig = self.graphs[graphtype].plot_figure(data)
             self.draw_figure(window['-GRAPH-CANVAS-'].TKCanvas, fig)
         except Exception as e:
-            print(f'ERROR: {str(e)}')
+            self.logger.error(str(e))
             return
 
     @staticmethod
@@ -77,8 +79,8 @@ class GraphDrawer:
     def upload_file(self, window: pg.Window, file_path: str) -> Optional[pd.DataFrame]:
         try:
             df_main = pd.read_csv(file_path)
-        except FileNotFoundError:
-            print('ERROR: FILE NOT FOUND')
+        except FileNotFoundError as e:
+            self.logger.error(str(e))
             return None
         dataframe_columns = []
         for column in df_main.columns:
