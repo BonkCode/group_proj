@@ -4,6 +4,18 @@
 https://github.com/smakhijani/kaggle-kiva-crowdfunding/blob/master/Preliminary%20Exploratory%20Data%20Analysis.ipynb
 https://nbviewer.org/github/bibliotekue/kiva-microfunds-eda/blob/main/kiva_eda%20%282%29.html
 
+# Использование логгера
+Короче будет хорошо, если впишете это к себе. Логер как бы. Вот как юзать:
+```py
+# получаем инстанс логгера
+logger = BonkLogger.get_instance('path_to_file/filename.log')
+# code
+logger.info('сделал это с этим, то пихнул туда')  # если хотим записать инфу то вот
+# code
+if error:
+    logger.error('все полетело и сломалось. за подробностями пишите сане он главный')  # если ошибку хотим записать то вот
+```
+
 # ВАША ЗАДАЧА
 Здесь дублирую то, что вам нужно сделать:
 Создаем функцию в отдельном файле, реализуем ее. Прототип описан ниже, вход и выход исключительно такие и никакие иначе.
