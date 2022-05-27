@@ -11,7 +11,7 @@ def plot_pie(data: pd.DataFrame) -> plt.Figure:
     sizes = data.y.values
 
     figure, axis = plt.subplots()
-    axis.pie(sizes, labels=labels)
+    axis.pie(sizes, labels=labels, autopct='%1.1f%%')
     axis.axis('equal')
 
     return figure
