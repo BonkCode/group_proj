@@ -17,3 +17,4 @@ def plot_pie(data: pd.DataFrame) -> plt.Figure:
     axis.axis('equal')
 
     return figure
+
