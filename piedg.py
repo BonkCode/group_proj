@@ -9,12 +9,16 @@ def plot_pie(data: pd.DataFrame) -> plt.Figure:
 
     processed = data.groupby("x", dropna=True).mean()
 
-    labels = processed.index
+    if len(processed) > 30:
+        processed = processed.head(15)
+
+    labels = processed.index.values
     sizes = processed.y.values
 
     figure, axis = plt.subplots()
-    axis.pie(sizes, labels=labels, autopct='%1.1f%%')
+    axis.pie(sizes, labels=labels, autopct='%1.1f%%',  startangle=90)
     axis.axis('equal')
+
 
     return figure
 
