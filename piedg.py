@@ -9,7 +9,7 @@ def plot_pie(data: pd.DataFrame) -> plt.Figure:
 
     processed = data.groupby("x", dropna=True).mean()
 
-    if len(processed) > 30:
+    if len(processed) > 15:
         processed = processed.head(15)
 
     labels = processed.index.values
