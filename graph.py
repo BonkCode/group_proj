@@ -1,4 +1,4 @@
-from karemina_barchart import plot_barplot_figure
+from barchart import plot_barplot_figure
 from piedg import plot_pie
 from scatterdg import plot_scatter
 import pandas as pd
