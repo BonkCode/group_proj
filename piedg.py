@@ -2,6 +2,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import pandas.api.types
 
+
 def plot_pie(data: pd.DataFrame) -> plt.Figure:
 
     if not pandas.api.types.is_numeric_dtype(data.y.dtype):
@@ -19,6 +20,4 @@ def plot_pie(data: pd.DataFrame) -> plt.Figure:
     axis.pie(sizes, labels=labels, autopct='%1.1f%%',  startangle=90)
     axis.axis('equal')
 
-
     return figure
-
