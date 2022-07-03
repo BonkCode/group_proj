@@ -1,4 +1,6 @@
 from karemina_barchart import plot_barplot_figure
+from piedg import plot_pie
+from scatterdg import plot_scatter
 import pandas as pd
 from matplotlib import pyplot as plt
 
@@ -18,12 +20,10 @@ class BarGraph(Graph):
 class PieGraph(Graph):
     @staticmethod
     def plot_figure(data: pd.DataFrame) -> plt.Figure:
-        from graph_drawer import GraphDrawer
-        return GraphDrawer.test_draw(data)
+        return plot_pie(data)
 
 
 class ScatterGraph(Graph):
     @staticmethod
     def plot_figure(data: pd.DataFrame) -> plt.Figure:
-        from graph_drawer import GraphDrawer
-        return GraphDrawer.test_draw(data)
+        return plot_scatter(data)
